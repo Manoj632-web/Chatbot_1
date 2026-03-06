@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Chatbot powered by Google Gemini — ask anything and get intelligent responses.">
+    <title>Gemini AI Chatbot</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Marked.js for Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Highlight.js for code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon">✦</div>
+                <span class="logo-text">Gemini Chat</span>
+            </div>
+        </div>
+        <button class="new-chat-btn" id="newChatBtn" title="Start a new conversation">
+            <span class="btn-icon">＋</span>
+            <span>New Chat</span>
+        </button>
+        <div class="sidebar-footer">
+            <div class="footer-info">
+                <span class="model-badge">gemini-2.5-flash</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Chat Area -->
+    <main class="chat-main">
+
+        <!-- Header Bar -->
+        <header class="chat-header">
+            <button class="menu-toggle" id="menuToggle" title="Toggle sidebar">☰</button>
+            <h1 class="header-title">Gemini AI</h1>
+            <div class="header-status">
+                <span class="status-dot"></span>
+                <span>Online</span>
+            </div>
+        </header>
+
+        <!-- Messages Container -->
+        <div class="messages-container" id="messagesContainer">
+            <div class="messages-wrapper" id="messagesWrapper">
+                <!-- Welcome screen shown when no messages -->
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="welcome-icon">✦</div>
+                    <h2>Welcome to Gemini Chat</h2>
+                    <p>Ask me anything — I'm powered by Google's Gemini 2.5 Flash model.</p>
+                    <div class="suggestion-chips">
+                        <button class="chip" data-prompt="Explain quantum computing in simple terms">🔬 Quantum Computing</button>
+                        <button class="chip" data-prompt="Write a Python function to sort a list using merge sort">🐍 Python Code</button>
+                        <button class="chip" data-prompt="What are the best practices for web development in 2026?">🌐 Web Dev Tips</button>
+                        <button class="chip" data-prompt="Tell me a creative short story about space exploration">🚀 Space Story</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <div class="input-wrapper">
+                <textarea
+                    id="messageInput"
+                    placeholder="Type your message..."
+                    rows="1"
+                    autofocus
+                ></textarea>
+                <button class="send-btn" id="sendBtn" title="Send message">
+                    <svg class="send-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13"></path>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+                    </svg>
+                </button>
+            </div>
+            <p class="input-hint">Press <kbd>Enter</kbd> to send · <kbd>Shift + Enter</kbd> for new line</p>
+        </div>
+
+    </main>
+
+    <!-- Pass existing messages from Django to JS -->
+    <script id="messagesData" type="application/json">
+        {{ messages_json|safe }}
+    </script>
+
+    <script src="{% static 'js/chat.js' %}"></script>
+</body>
+</html>

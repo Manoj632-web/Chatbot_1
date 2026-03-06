@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Teacher</title>
+</head>
+<body>
+
+<h2>Ask AI</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="question" placeholder="Ask something..." style="width:400px">
+    <button type="submit">Ask</button>
+</form>
+
+<br>
+
+<h3>Answer:</h3>
+<p>{{ answer }}</p>
+
+</body>
+</html>
